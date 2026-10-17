@@ -10,7 +10,8 @@ The commercial products below have private source code. This public portfolio do
 
 ## Evidence at a glance
 
-- **4 third-party open-source defect reports** with reproducible steps and technical evidence; three led to merged fixes, and one was independently reproduced and consolidated into a maintainer root-cause plan.\n- **2 upstream open-source fixes merged** into DeskcommCRM after independent maintainer validation.
+- **4 third-party open-source defect reports** with reproducible steps and technical evidence; three led to merged fixes, and one was independently reproduced and consolidated into a maintainer root-cause plan.
+- **2 upstream open-source fixes merged** into DeskcommCRM after independent maintainer validation.
 - **1 additional upstream core fix accepted**, with the PR intentionally waiting for the project's 2.0.0 rollout.
 - **2 production SaaS products** tested and shipped: GBP Manager and Agiliza Terapias.
 - **7,594 Vitest test cases in 479 files** documented for Agiliza Terapias, plus Playwright browser smoke coverage.
