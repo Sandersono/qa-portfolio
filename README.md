@@ -15,6 +15,7 @@ The commercial products below have private source code. This public portfolio do
 - **2 production SaaS products** tested and shipped: GBP Manager and Agiliza Terapias.
 - **7,594 Vitest test cases in 479 files** documented for Agiliza Terapias, plus Playwright browser smoke coverage.
 - **251 automated test files** documented for GBP Manager, including Playwright desktop and mobile journeys.
+- **537 of 691 fix-prefixed commits (77.7%)** across the two products also changed test coverage in an October 2026 commit-history audit.
 - Hands-on evidence of **functional, regression, negative, boundary-value, permission, API, AI-behavior and release testing**.
 - Tooling includes **Playwright, Vitest, Supertest, node:test, GitHub Actions and Sentry**.
 
