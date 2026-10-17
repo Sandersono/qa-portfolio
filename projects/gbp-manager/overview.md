@@ -21,6 +21,10 @@ A separate module, **Prospecção** (prospecting), audits a business profile and
 - Product: `app.gbpmanager.com.br` (login required)
 - Public site: `gbpmanager.com.br`
 
+![The GBP Manager self-service signup page, in Portuguese: plan, Google connection, location selection and payment steps.](../../assets/screenshots/gbp-manager-signup-screen.png)
+
+*The public self-service signup page in production (October 17, 2026). A new customer connects Google, picks the locations and pays, with no help from our team.*
+
 ## Who uses it
 
 | User type | What they do in the product |
