@@ -20,6 +20,10 @@ Agiliza Terapias helps a therapy practice run its daily work in one place:
 
 Website: `agilizaterapias.com.br` (app: `app.agilizaterapias.com.br`). The user interface is in Portuguese.
 
+![The Agiliza Terapias sign-in screen, in Portuguese, from a local development build.](../../assets/screenshots/agiliza-terapias-login-screen.png)
+
+*The sign-in screen ("Entrar" means "Sign in"), from a local development build with no data.*
+
 ## Who uses it
 
 | User type | What they do in the product |

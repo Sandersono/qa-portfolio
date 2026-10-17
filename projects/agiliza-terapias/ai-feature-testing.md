@@ -97,6 +97,10 @@ Design rules that I test:
 
 Numbers in parentheses are test cases in the file (`npx vitest list --json`, 2026-10-16).
 
+![Vitest run of the 22 AI assistant test files in Agiliza Terapias: 22 files and 556 tests passed.](../../assets/screenshots/agiliza-terapias-vitest-ai-guardrails.png)
+
+*Vitest run of the 22 AI assistant test files (`agente-*`) on my machine (October 17, 2026): 556 tests passed. The file names are in Portuguese. For example, `agente-cadeia-de-veto` is the veto chain and `agente-alerta-de-risco` is the risk alert.*
+
 ## 5. Output-format testing
 
 **Clinical notes (strict JSON schema)**

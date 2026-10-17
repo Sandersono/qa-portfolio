@@ -97,6 +97,10 @@ The CI job runs `npm ci` and then `npm run ci`. The steps are chained, so the fi
 
 A second workflow runs for the Prospecção module when its files change: Dockerfile checks, unit tests, Playwright tests in Chromium, build and a production runtime smoke.
 
+![A green GitHub Actions CI run for a GBP Manager pull request, shown with the GitHub CLI. The log shows the type check, the critical-flow guard, the critical tests (15 passed, 12 skipped, 0 failed) and the build, in this order.](../../assets/screenshots/gbp-manager-ci-quality-gate.png)
+
+*A green CI run on a pull request (October 12, 2026), shown with the GitHub CLI. The 12 skipped tests are the API end-to-end scenarios: they need a database, so they run on my machine.*
+
 ### Branch protection
 
 Native required checks are not available for this private repository on its current plan. So I enforce the rules in the repo:

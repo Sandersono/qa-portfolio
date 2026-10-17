@@ -62,6 +62,10 @@ Notes:
 - I counted on 2026-10-16. Test cases come from `npx vitest list --json`. No test in the suite is marked `skip`, `todo` or `only`.
 - The Playwright smoke runs only when a target URL is set. It is not part of the CI job today.
 
+![Full Vitest run of Agiliza Terapias: 479 test files and 7,618 tests passed. The image shows the last test files and the summary.](../../assets/screenshots/agiliza-terapias-vitest-full-suite.png)
+
+*Full Vitest run on my machine (October 17, 2026): 479 files and 7,618 tests passed. This is 24 more test cases than the October 16 count in the table, because tests were added after that count.*
+
 ## 5. Test design techniques
 
 | Technique | Where I use it | Example |
@@ -99,6 +103,10 @@ This is a mental-health product, so test data rules are strict:
 | 8 | Deploy smoke | Health and readiness endpoints must answer, up to 30 tries, 5 seconds apart | Manual run on `main` only |
 
 Each job needs the previous job to pass. Since 2026-09-07, a push to `main` does not deploy by itself. Deploy is an explicit action, because a deploy that nobody is watching is worse than a slow deploy.
+
+![A green GitHub Actions CI-CD run on main for Agiliza Terapias, shown with the GitHub CLI. The ci, docker_image, db_migrate and deploy_vps jobs all passed.](../../assets/screenshots/agiliza-terapias-ci-cd-run.png)
+
+*A green CI-CD run on `main` (September 5, 2026), shown with the GitHub CLI. It is from before deploy became a manual action: the `ci` job (lint, build, backend tests, migration lint) passed first, and then the image, migration and deploy jobs ran.*
 
 ## 8. What stays manual, and why
 
