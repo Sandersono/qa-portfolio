@@ -1,25 +1,26 @@
-# PR #2327: Go-Live Hold Does Not Hold Automatic Follow-Ups
+# PR #2327: Go-Live Hold and Real Production Payloads
 
-**TL;DR:** New WhatsApp numbers start in a "go-live" hold that must stop messages the business starts, to reduce the risk of a ban. Automatic follow-ups ignored the hold, because the rule looked for a key that follow-up jobs never carry. The existing test passed only because its test data used a format no real producer creates.
-I fixed the matching rule and added 2 database invariant cases. The maintainer wrote that the fix goes in as is. The PR is open, waiting for the maintainer to confirm a 2.0.0 release.
-
-Related documents: [Overview](overview.md) · [PR #1473](pr-1473-ai-agent-publishing.md) · [PR #2324](pr-2324-webhook-retention.md)
-
----
-
-## Summary
+**TL;DR:** New WhatsApp numbers start in a "go-live" hold that must stop messages the business starts, to reduce the risk of a ban. Automatic follow-ups ignored the hold, because the rule looked for a key that follow-up jobs never carry. The existing test passed only because its test data used a format no real producer creates. I fixed the matching rule and added 2 database invariant cases. The maintainer accepted the core fix; the PR is open, waiting for the 2.0.0 rollout.
 
 | Field | Value |
 |---|---|
-| PR | [melgarafael/DeskcommCRM#2327](https://github.com/melgarafael/DeskcommCRM/pull/2327) |
-| Status | Open (October 2026). Accepted as is, waiting for the maintainer to confirm version 2.0.0. |
+| Upstream PR | [melgarafael/DeskcommCRM#2327](https://github.com/melgarafael/DeskcommCRM/pull/2327) |
+| Status | **Open — core fix accepted by the maintainer; rollout held for 2.0.0** (October 2026) |
 | Area | AI agent engine: session watchdog and job queue |
 | My commit | `eaebb7b79`: 2 files, +104 / −6 |
 | Severity (my assessment) | High. The protection for new numbers did not work for automatic follow-ups, which raises the risk of a WhatsApp ban. |
 
-## Defect report
+## Defect
 
-**Title:** Automatic follow-ups are sent while the WhatsApp number is in the go-live hold.
+The product had a go-live hold intended to retain automated `followup_turn` jobs for a new channel.
+
+An existing invariant test passed, suggesting the protection worked. Production producers, however, did not emit the field that the hold rule was checking.
+
+The rule looked for `payload.channel_session_id`, while real follow-up producers carried the conversation identity inside `payload.service_boundary.conversation_id`.
+
+The test fixture represented a payload shape that production did not produce.
+
+### Defect report
 
 **Environment:** Any installation with a WhatsApp number in the go-live hold (also when the number is in the `block_rate` state).
 
@@ -32,24 +33,25 @@ Related documents: [Overview](overview.md) · [PR #1473](pr-1473-ai-agent-publis
 
 **Actual result:** The follow-up is sent anyway, which is the opposite of what the hold promises.
 
-## Root cause
+## Investigation
 
-The hold rule (`enforceHolds` in the session watchdog) only held jobs whose payload had `channel_session_id` equal to the number's ID. That key is used by inbound reply jobs.
+The important QA step was not adding another assertion to the same fixture. It was checking the fixture against the actual producers.
 
-The producers of follow-up jobs (the follow-up engine, the scheduler and the API routes that queue the job) do not write that key. They carry the conversation in `payload.service_boundary.conversation_id`, and the follow-up handler finds the channel through it. So follow-up jobs never matched the rule.
+The upstream review confirmed that the inspected `followup_turn` producers did not write `channel_session_id`:
 
-**Why the tests did not catch it:** the existing invariant test queued a follow-up job **with** `channel_session_id` in the payload, a format that no real producer creates. The test was green for the wrong reason.
+- The maintainer counted the producers in 8 files, and none writes that key. The search itself was checked against a file where the key does exist.
+- The maintainer also found an additional producer and reached the same result.
 
-## Fix
+This explained how a green invariant could coexist with a production behavior gap.
 
-The hold now finds a job's channel the same way the handler does: from `channel_session_id` in the payload, or from the conversation in `service_boundary.conversation_id`.
+## Core fix and regression coverage
 
+The proposed fix resolved the channel using the same information path used by the real follow-up handler and retained the resolved channel identity for later release:
+
+- The channel comes from `channel_session_id` in the payload, or from the conversation in `service_boundary.conversation_id`.
 - The conversation ID is compared as text on purpose. Casting a bad value to `uuid` would throw an error for the whole run, and the watchdog would stop holding any job.
 - The channel used by the hold is saved on the job (`held_channel_session_id`), and the release matches by it. Release removes both marks, so the job comes back exactly as it was queued.
 - Jobs held before this PR only have `channel_session_id`. The release falls back to it, so updating needs no manual database work.
-- A job with no channel anywhere still does not match. It fails on its own in the handler, which would not know where to send it either.
-
-## Regression tests
 
 Two new cases in the existing invariant test `tests/invariants/hold-de-go-live-nao-cala-resposta.test.ts`, run with `pnpm test:db` against a real PostgreSQL database:
 
@@ -58,34 +60,28 @@ Two new cases in the existing invariant test `tests/invariants/hold-de-go-live-n
 | 1 | Follow-up job queued the way the engine queues it (only `service_boundary`), number in go-live | Held, then released clean | Fails |
 | 2 | Follow-up job for a conversation on **another**, healthy number | Not held | Guards against holding too much |
 
-The invariant folder is frozen in this project. No existing assertion was changed or relaxed; I only added cases and the setup they need. I ran the file (7 tests), lint, the type check and the neighboring tests.
+The invariant folder is frozen in this project. No existing assertion was changed or relaxed. In the maintainer's check, the 11 old assertions were identical and 6 new ones were added. In CI, the invariant suite passed on PostgreSQL 15 and 17, with both a fresh install and an update of the database baseline.
 
-## Independent verification (from the maintainer's review)
-
-- Counted the follow-up producers in 8 files: none writes `channel_session_id`. The search itself was checked against a file where the key does exist. The maintainer also found one more producer with the same format.
-- The 11 old assertions of the invariant are identical, and 6 new ones were added. In CI, the invariant suite passed on PostgreSQL 15 and 17, with both a fresh install and an update of the database baseline.
-- Checked that a held job does not block the rest of the queue for that contact.
+The maintainer explicitly accepted the core fix.
 
 ## Correction from the review
 
-My PR description said follow-ups were also sent when the channel was down. The maintainer showed that, in that case, the send returned `queued` and the job was rescheduled instead. The real fix applies to the go-live and `block_rate` states. I list this because it is a fair correction of my analysis, not of the fix.
+My PR description said follow-ups were also sent when the channel was down. The maintainer showed that, in that case, the send returned `queued` and the job was rescheduled instead. The real fix applies to the go-live and `block_rate` states. This was a fair correction of my analysis, not of the fix.
 
-## Why it is not merged yet
+## Why the PR is still open
 
-The fix makes the hold work for the first time. Many installations have numbers that stayed in go-live for weeks while working normally, because the hold never held anything. After an update, all their automatic follow-ups would stop.
+Making the hold work correctly changes behavior for existing installations. Older installations can contain go-live state that historically did not block these follow-ups. Enforcing the corrected rule immediately could therefore retain automated messages for already-operating numbers.
 
-The maintainer decided that my fix goes in as is, and added a transition on top of it:
-- a migration that releases numbers that are already established,
-- held follow-ups released spaced out, one every 5 minutes per number,
-- a warning in the admin center, in Portuguese, Spanish and English.
+The upstream maintainers added migration and rollout work on top of the original finding and fix, including transition rules and additional invariants. The project classifies the behavior change as requiring the **2.0.0** release, so auto-merge is intentionally disabled.
 
-Because operators may need to act after updating, the project's versioning rule makes this a major version (2.0.0). The PR is ready, and auto-merge is off on purpose until the maintainer confirms that version. All CI checks that ran passed.
+The later migration/rollout commits are maintainer work and are not presented here as my implementation.
 
-## What this shows
+## QA lesson
 
-- Finding a defect hidden by a test whose data did not match production
-- Reading several producers and consumers to find a key mismatch
-- Database-level invariant tests, including a test that the fix does not hold too much
-- Thinking about rollout risk, not only the code change
+**A passing test is not evidence of production correctness when the fixture is unrealistic.**
 
-[← Back to portfolio](../../README.md)
+Test data must be traced back to real producers, contracts or observed payloads. In this case, validating the fixture itself exposed the defect that the existing invariant could not see.
+
+---
+
+[← DeskcommCRM overview](overview.md) · [← Portfolio](../../README.md)
