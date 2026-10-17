@@ -110,9 +110,11 @@ A practice-management product for therapy clinics with scheduling, patient recor
 | Test cases across scenarios and conditions, including mobile | [GBP test cases](projects/gbp-manager/test-cases.md), [Agiliza test cases](projects/agiliza-terapias/test-cases.md) |
 | Regression testing | All three [DeskcommCRM cases](projects/deskcommcrm/overview.md), plus both product QA strategies |
 | Test-design techniques | Equivalence partitioning, boundary values, decision tables, state transitions and error guessing in the product test-case documents |
-| Defect reporting with reproducible steps | [Third-party defect reports](projects/open-source-bug-reports.md) |\n| Test documentation and traceability | [GBP QA strategy](projects/gbp-manager/qa-strategy.md), [Agiliza QA strategy](projects/agiliza-terapias/qa-strategy.md) |
+| Defect reporting with reproducible steps | [Third-party defect reports](projects/open-source-bug-reports.md) |
+| Test documentation and traceability | [GBP QA strategy](projects/gbp-manager/qa-strategy.md), [Agiliza QA strategy](projects/agiliza-terapias/qa-strategy.md) |
 | Release validation across the SDLC | [GBP release validation](projects/gbp-manager/release-validation.md), [Agiliza release validation](projects/agiliza-terapias/release-validation.md) |
-| Test automation and CI | Playwright, node:test, Vitest, Supertest and GitHub Actions |\n| Regression discipline | [537 of 691 fix-prefixed commits changed tests](projects/regression-discipline.md), plus independently inspectable upstream regression cases |
+| Test automation and CI | Playwright, node:test, Vitest, Supertest and GitHub Actions |
+| Regression discipline | [537 of 691 fix-prefixed commits changed tests](projects/regression-discipline.md), plus independently inspectable upstream regression cases |
 | Production monitoring | Sentry and health/release evidence documented in both product QA strategies |
 | Test-fixture validation | [DeskcommCRM PR #2327](projects/deskcommcrm/pr-2327-followup-go-live.md) |
 
