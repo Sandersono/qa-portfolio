@@ -1,29 +1,46 @@
 # Sanderson Palmeira de Oliveira: QA and Software Testing Portfolio
 
-I am a full-stack developer and solo founder from Brazil. I built, tested and shipped two production SaaS products, both with AI features, and I am looking for a Software Tester / QA role in the US.
+I am a technology professional and SaaS founder from Brazil with hands-on experience in software quality, AI feature validation, defect investigation, regression testing and production release validation. I have designed, built, tested and shipped two production SaaS products and contributed production bug fixes and regression tests to an established open-source project.
 
-Both products are commercial and their source code is private. This portfolio shows how I test them: strategy, test cases, defect reports and release validation. Customer data is removed, and every number below was counted in the repositories in October 2026.
+I am pursuing a dedicated **Software QA / AI Feature Testing** role in the United States.
+
+The commercial products below have private source code. This public portfolio documents how I test them: strategy, representative test cases, defect investigation, AI behavior validation and release evidence. Customer and patient data is excluded. Repository counts were measured in October 2026.
 
 ---
 
-## At a glance
+## Evidence at a glance
 
-| | GBP Manager | Agiliza Terapias |
+- **2 upstream open-source fixes merged** into DeskcommCRM after independent maintainer validation.
+- **1 additional upstream core fix accepted**, with the PR intentionally waiting for the project's 2.0.0 rollout.
+- **2 production SaaS products** tested and shipped: GBP Manager and Agiliza Terapias.
+- **7,594 Vitest test cases in 479 files** documented for Agiliza Terapias, plus Playwright browser smoke coverage.
+- **251 automated test files** documented for GBP Manager, including Playwright desktop and mobile journeys.
+- Hands-on evidence of **functional, regression, negative, boundary-value, permission, API, AI-behavior and release testing**.
+- Tooling includes **Playwright, Vitest, Supertest, node:test, GitHub Actions and Sentry**.
+
+---
+
+## Open-source QA contributions
+
+### [DeskcommCRM](projects/deskcommcrm/overview.md)
+
+These contributions are the strongest independent evidence in this portfolio because the product, review process and merge decision are controlled by an external open-source maintainer.
+
+| Contribution | QA evidence | Status |
 |---|---|---|
-| What it is | SaaS to manage Google Business Profiles for local businesses and agencies | Practice-management app for therapy clinics, with an AI WhatsApp assistant and AI clinical notes |
-| Commits | 853 | 1,280 |
-| Automated tests | 251 test files, including Playwright journeys on Desktop Chrome and a Pixel 7 mobile profile | 479 test files with 7,594 test cases (Vitest + Supertest) |
-| Release records | 63 homologation sign-offs, 46 pre-release manifests, 40 evidence records | 301 pre-release notes |
-| AI quality | Unsafe AI output is blocked and replaced by a safe fallback | Every assistant message passes a tested guardrail chain before it is sent |
-| CI gates | Typecheck, critical-flow guard, critical test suite, build | Lint, build, tests, database migration check |
+| [PR #1473 — AI agent publishing](projects/deskcommcrm/pr-1473-ai-agent-publishing.md) | Reproduced a production UI-state defect, identified semantic-vs-serialized JSON comparison as the cause, added regression coverage | **Merged upstream** |
+| [PR #2324 — webhook retention](projects/deskcommcrm/pr-2324-webhook-retention.md) | Traced a silent retention failure to oversized PostgREST URLs, redesigned the boundary and added regression tests | **Merged upstream** |
+| [PR #2327 — go-live follow-up hold](projects/deskcommcrm/pr-2327-followup-go-live.md) | Found that a passing invariant used a payload shape not emitted by real producers; added production-representative coverage | **Core fix accepted; open for 2.0.0 rollout** |
+
+Direct upstream evidence: [#1473](https://github.com/melgarafael/DeskcommCRM/pull/1473) · [#2324](https://github.com/melgarafael/DeskcommCRM/pull/2324) · [#2327](https://github.com/melgarafael/DeskcommCRM/pull/2327)
 
 ---
 
-## Projects
+## Production projects
 
 ### [GBP Manager](projects/gbp-manager/overview.md)
 
-A multi-tenant SaaS for Google Business Profiles: posts, review replies, local rank insights and AI content. I test by risk. Client data isolation, billing, the Google integration, AI output and text quality come first.
+A multi-tenant SaaS for Google Business Profiles: posts, review replies, local-rank insights and AI content. I test by risk. Client-data isolation, billing, Google integration, AI output and text quality come first.
 
 | Document | What you will find |
 |---|---|
@@ -31,52 +48,63 @@ A multi-tenant SaaS for Google Business Profiles: posts, review replies, local r
 | [Architecture](projects/gbp-manager/architecture.md) | System diagram, AI request path, CI/CD and deploy |
 | [QA strategy](projects/gbp-manager/qa-strategy.md) | Risk-based testing, test pyramid, CI gates, entry and exit criteria, severity scale, Sentry monitoring |
 | [Test cases](projects/gbp-manager/test-cases.md) | 25 test cases (functional, negative, mobile, permission, AI output) with traceability |
-| [Bug case study](projects/gbp-manager/bug-case-study.md) | Two real production defects in standard defect report format |
+| [Bug case study](projects/gbp-manager/bug-case-study.md) | Two real production defects in standard defect-report format |
 | [Release validation](projects/gbp-manager/release-validation.md) | Release flow, go/no-go checklist, evidence records, sample sign-off |
 
 ### [Agiliza Terapias](projects/agiliza-terapias/overview.md)
 
-A mental-health practice app: scheduling, patient records, billing, a WhatsApp AI assistant and AI clinical notes. A wrong AI message can hurt a real person, so the AI runs inside fixed, tested guardrails.
+A practice-management product for therapy clinics with scheduling, patient records, billing, a WhatsApp AI assistant and AI clinical notes. AI behavior is surrounded by deterministic, tested controls before a message can be sent.
 
 | Document | What you will find |
 |---|---|
 | [Overview](projects/agiliza-terapias/overview.md) | Product, users, tech stack, my role, timeline |
-| [Architecture](projects/agiliza-terapias/architecture.md) | System diagram, how an AI request flows through the guardrails |
+| [Architecture](projects/agiliza-terapias/architecture.md) | System diagram and how an AI request flows through the guardrails |
 | [QA strategy](projects/agiliza-terapias/qa-strategy.md) | Risk-based testing, test levels, test data policy, CI/CD gates, severity scale |
-| [Test cases](projects/agiliza-terapias/test-cases.md) | 25 test cases, a decision table for the AI veto chain, boundary values, traceability |
-| [AI feature testing](projects/agiliza-terapias/ai-feature-testing.md) | AI risks, guardrail chain, guardrail-to-test mapping, AI behavior scenarios, known gaps |
-| [Release validation](projects/agiliza-terapias/release-validation.md) | Release flow, migration safety, release checklist, sample pre-release note |
+| [Test cases](projects/agiliza-terapias/test-cases.md) | 25 test cases, AI-veto decision table, boundary values and traceability |
+| [AI feature testing](projects/agiliza-terapias/ai-feature-testing.md) | AI risks, guardrail chain, guardrail-to-test mapping, behavior scenarios and known gaps |
+| [Release validation](projects/agiliza-terapias/release-validation.md) | Release flow, migration safety, release checklist and sample pre-release note |
 
 ---
 
-## QA skills and where to see them
+## QA skills and evidence
 
 | Skill | Evidence |
 |---|---|
-| Functional testing of AI features (accuracy, consistency, intended behavior) | [AI feature testing](projects/agiliza-terapias/ai-feature-testing.md), AI output cases in [GBP test cases](projects/gbp-manager/test-cases.md) |
-| Test cases across scenarios and conditions, including mobile | [GBP test cases](projects/gbp-manager/test-cases.md) (Pixel 7 profile), [Agiliza test cases](projects/agiliza-terapias/test-cases.md) |
-| Defect reports with reproducible steps | [Bug case study](projects/gbp-manager/bug-case-study.md) |
-| Test design techniques (equivalence partitioning, boundary values, decision tables, state transition) | [GBP test cases](projects/gbp-manager/test-cases.md), [Agiliza test cases](projects/agiliza-terapias/test-cases.md) |
-| Test documentation that follows a standard (scope, risks, entry and exit criteria, severity, traceability) | [GBP QA strategy](projects/gbp-manager/qa-strategy.md), [Agiliza QA strategy](projects/agiliza-terapias/qa-strategy.md) |
-| Release validation across the software life cycle | [GBP release validation](projects/gbp-manager/release-validation.md), [Agiliza release validation](projects/agiliza-terapias/release-validation.md) |
-| Test automation and CI | Playwright, node:test, Vitest and Supertest in both QA strategies |
-| Production monitoring | Sentry sections in both QA strategies |
+| Production defect investigation and root-cause analysis | [DeskcommCRM contributions](projects/deskcommcrm/overview.md), [GBP bug case study](projects/gbp-manager/bug-case-study.md) |
+| Functional testing of AI features | [Agiliza AI feature testing](projects/agiliza-terapias/ai-feature-testing.md), AI-output cases in [GBP test cases](projects/gbp-manager/test-cases.md) |
+| Test cases across scenarios and conditions, including mobile | [GBP test cases](projects/gbp-manager/test-cases.md), [Agiliza test cases](projects/agiliza-terapias/test-cases.md) |
+| Regression testing | All three [DeskcommCRM cases](projects/deskcommcrm/overview.md), plus both product QA strategies |
+| Test-design techniques | Equivalence partitioning, boundary values, decision tables, state transitions and error guessing in the product test-case documents |
+| Test documentation and traceability | [GBP QA strategy](projects/gbp-manager/qa-strategy.md), [Agiliza QA strategy](projects/agiliza-terapias/qa-strategy.md) |
+| Release validation across the SDLC | [GBP release validation](projects/gbp-manager/release-validation.md), [Agiliza release validation](projects/agiliza-terapias/release-validation.md) |
+| Test automation and CI | Playwright, node:test, Vitest, Supertest and GitHub Actions |
+| Production monitoring | Sentry and health/release evidence documented in both product QA strategies |
+| Test-fixture validation | [DeskcommCRM PR #2327](projects/deskcommcrm/pr-2327-followup-go-live.md) |
 
 ---
 
 ## Tools
 
 - **Testing:** Playwright, Vitest, Supertest, node:test, GitHub Actions, Sentry
-- **Development:** TypeScript, React, Node.js, Express, PostgreSQL (Supabase), Docker, Git
-- **AI:** OpenAI and Anthropic APIs, structured output (JSON schema), guardrails and fallbacks
+- **Development / systems:** TypeScript, React, Node.js, Express, PostgreSQL (Supabase), Docker, Git
+- **AI:** OpenAI and Anthropic APIs, structured output (JSON Schema), tool calls, deterministic guardrails and provider fallback
+
+### AI-assisted development
+
+I use AI coding tools as part of my development workflow. I remain responsible for requirements, production observations, defect definition, test strategy, acceptance criteria, review and release decisions. Implementation and test drafting can be AI-assisted; I validate the result against the real system behavior before it is accepted or submitted upstream.
 
 ---
 
 ## Repository structure
 
-```
+```text
 README.md
 projects/
+    deskcommcrm/
+        overview.md
+        pr-1473-ai-agent-publishing.md
+        pr-2324-webhook-retention.md
+        pr-2327-followup-go-live.md
     gbp-manager/
         overview.md
         architecture.md
@@ -99,4 +127,5 @@ assets/
 
 ## Contact
 
-GitHub: [github.com/Sandersono](https://github.com/Sandersono)
+GitHub: [github.com/Sandersono](https://github.com/Sandersono)  
+LinkedIn: [linkedin.com/in/sanderson-oliveira](https://www.linkedin.com/in/sanderson-oliveira/)
