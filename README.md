@@ -1,6 +1,6 @@
 # Sanderson Palmeira de Oliveira: QA and Software Testing Portfolio
 
-I am a technology professional and SaaS founder from Brazil with hands-on experience in software quality, AI feature validation, defect investigation, regression testing and production release validation. I have designed, built, tested and shipped two production SaaS products and contributed production bug fixes and regression tests to an established open-source project.
+I am a technology professional and SaaS founder from Brazil with hands-on experience in software quality, AI feature validation, defect investigation, regression testing and production release validation. I have designed, built, tested and shipped two production SaaS products, contributed production bug fixes and regression tests to an established open-source project, and published reproducible defect reports against third-party open-source systems.
 
 I am pursuing a dedicated **Software QA / AI Feature Testing** role in the United States.
 
@@ -10,13 +10,38 @@ The commercial products below have private source code. This public portfolio do
 
 ## Evidence at a glance
 
+- **4 third-party open-source defect reports** with reproducible steps and technical evidence; three led to merged fixes, and one was independently reproduced and consolidated into a maintainer root-cause plan.
 - **2 upstream open-source fixes merged** into DeskcommCRM after independent maintainer validation.
 - **1 additional upstream core fix accepted**, with the PR intentionally waiting for the project's 2.0.0 rollout.
 - **2 production SaaS products** tested and shipped: GBP Manager and Agiliza Terapias.
 - **7,594 Vitest test cases in 479 files** documented for Agiliza Terapias, plus Playwright browser smoke coverage.
 - **251 automated test files** documented for GBP Manager, including Playwright desktop and mobile journeys.
+- **537 of 691 fix-prefixed commits (77.7%)** across the two products also changed test coverage in an October 2026 commit-history audit.
 - Hands-on evidence of **functional, regression, negative, boundary-value, permission, API, AI-behavior and release testing**.
 - Tooling includes **Playwright, Vitest, Supertest, node:test, GitHub Actions and Sentry**.
+
+---
+
+## Third-party defect reporting
+
+### [Open-source bug reports](projects/open-source-bug-reports.md)
+
+These reports map directly to a core QA responsibility: detect a defect, make it reproducible, document expected versus actual behavior, provide enough evidence for engineering to act, and track the result.
+
+| Report | Evidence | Outcome |
+|---|---|---|
+| [Krayin #2680](https://github.com/krayin/laravel-crm/issues/2680) | Blank optional phone could produce HTTP 500; report included reproduction, code-level cause and a second edge-case variant | Closed as completed; maintainer fix [#2693](https://github.com/krayin/laravel-crm/pull/2693) merged |
+| [Krayin #2681](https://github.com/krayin/laravel-crm/issues/2681) | Missing `product_id` bypassed server validation and failed at the database | Contributor fix [#2682](https://github.com/krayin/laravel-crm/pull/2682) with regression tests approved and merged |
+| [DeskcommCRM #2326](https://github.com/melgarafael/DeskcommCRM/issues/2326) | SQL reproduction and event-by-event root-cause analysis for automations failing with `service_boundary_stale` | Fix [#2330](https://github.com/melgarafael/DeskcommCRM/pull/2330) merged; contributor publicly credited the reproduction measurements |
+| [claude-mem #3906](https://github.com/thedotmack/claude-mem/issues/3906) | Five-day outage diagnosed through logs, health state and database timestamps while health checks stayed green | Independently reproduced; maintainer consolidated root cause and fix sequence into [#3609](https://github.com/thedotmack/claude-mem/issues/3609) |
+
+The Krayin and claude-mem reports are in English; the DeskcommCRM report is in Portuguese. The original issues disclose AI-assisted drafting where applicable.
+
+---
+
+## Regression discipline
+
+A local Git-history audit found that **537 of 691 commits whose subject begins with `fix` (77.7%) also changed test coverage** across GBP Manager and Agiliza Terapias. The exact method, per-product counts and limitations are documented in [Regression-test discipline from commit history](projects/regression-discipline.md).
 
 ---
 
@@ -80,14 +105,14 @@ A practice-management product for therapy clinics with scheduling, patient recor
 
 | Skill | Evidence |
 |---|---|
-| Production defect investigation and root-cause analysis | [DeskcommCRM contributions](projects/deskcommcrm/overview.md), [GBP bug case study](projects/gbp-manager/bug-case-study.md) |
+| Production defect investigation and root-cause analysis | [Third-party defect reports](projects/open-source-bug-reports.md), [DeskcommCRM contributions](projects/deskcommcrm/overview.md), [GBP bug case study](projects/gbp-manager/bug-case-study.md) |
 | Functional testing of AI features | [Agiliza AI feature testing](projects/agiliza-terapias/ai-feature-testing.md), AI-output cases in [GBP test cases](projects/gbp-manager/test-cases.md) |
 | Test cases across scenarios and conditions, including mobile | [GBP test cases](projects/gbp-manager/test-cases.md), [Agiliza test cases](projects/agiliza-terapias/test-cases.md) |
 | Regression testing | All three [DeskcommCRM cases](projects/deskcommcrm/overview.md), plus both product QA strategies |
 | Test-design techniques | Equivalence partitioning, boundary values, decision tables, state transitions and error guessing in the product test-case documents |
-| Test documentation and traceability | [GBP QA strategy](projects/gbp-manager/qa-strategy.md), [Agiliza QA strategy](projects/agiliza-terapias/qa-strategy.md) |
+| Defect reporting with reproducible steps | [Third-party defect reports](projects/open-source-bug-reports.md) |\n| Test documentation and traceability | [GBP QA strategy](projects/gbp-manager/qa-strategy.md), [Agiliza QA strategy](projects/agiliza-terapias/qa-strategy.md) |
 | Release validation across the SDLC | [GBP release validation](projects/gbp-manager/release-validation.md), [Agiliza release validation](projects/agiliza-terapias/release-validation.md) |
-| Test automation and CI | Playwright, node:test, Vitest, Supertest and GitHub Actions |
+| Test automation and CI | Playwright, node:test, Vitest, Supertest and GitHub Actions |\n| Regression discipline | [537 of 691 fix-prefixed commits changed tests](projects/regression-discipline.md), plus independently inspectable upstream regression cases |
 | Production monitoring | Sentry and health/release evidence documented in both product QA strategies |
 | Test-fixture validation | [DeskcommCRM PR #2327](projects/deskcommcrm/pr-2327-followup-go-live.md) |
 
