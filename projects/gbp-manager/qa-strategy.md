@@ -59,6 +59,10 @@ Counts are files in the main branch, counted with `git ls-files` (no `node_modul
 
 Playwright settings: 45 s per test, 10 s per assertion, and trace, screenshot and video kept on failure, plus an HTML report. Locators accept both languages (for example "Painel Completo" or "Full Dashboard"), so the same test works in Portuguese and English.
 
+![Playwright run of the GBP Manager public signup and checkout journeys against production: 3 tests on Desktop Chrome (chromium) and on the Pixel 7 profile (mobile-chrome), 6 passed.](../../assets/screenshots/gbp-manager-playwright-public-journeys.png)
+
+*Playwright run of the 3 public signup and checkout journeys against the production site (October 21, 2026), on Desktop Chrome and the Pixel 7 profile: 6 passed. The journeys that need a signed-in user are not in this run.*
+
 ## 5. The critical suite (`test:critical`)
 
 Seven test files, chosen by risk. They run in CI on every PR and again in `release:check`.
