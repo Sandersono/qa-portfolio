@@ -14,7 +14,7 @@ The commercial products below have private source code. This public portfolio do
 - **2 upstream open-source fixes merged** into DeskcommCRM after independent maintainer validation.
 - **1 additional upstream core fix accepted**, with the PR intentionally waiting for the project's 2.0.0 rollout.
 - **2 production SaaS products** tested and shipped: GBP Manager and Agiliza Terapias.
-- **7,594 Vitest test cases in 479 files** documented for Agiliza Terapias, plus Playwright browser smoke coverage.
+- **7,618 Vitest test cases in 479 files** passing in the latest full run of Agiliza Terapias (October 17, 2026), plus Playwright browser smoke coverage.
 - **251 automated test files** documented for GBP Manager, including Playwright desktop and mobile journeys.
 - **537 of 691 fix-prefixed commits (77.7%)** across the two products also changed test coverage in an October 2026 commit-history audit.
 - Hands-on evidence of **functional, regression, negative, boundary-value, permission, API, AI-behavior and release testing**.
@@ -94,7 +94,7 @@ A practice-management product for therapy clinics with scheduling, patient recor
 | | GBP Manager | Agiliza Terapias |
 |---|---|---|
 | Commits | 853 | 1,280 |
-| Automated tests | 251 test files, including Playwright journeys on Desktop Chrome and a Pixel 7 mobile profile | 479 test files with 7,594 test cases (Vitest + Supertest) |
+| Automated tests | 251 test files, including Playwright journeys on Desktop Chrome and a Pixel 7 mobile profile | 479 test files with 7,618 test cases (Vitest + Supertest) |
 | Release records | 63 homologation sign-offs, 46 pre-release manifests, 40 evidence records | 301 pre-release notes |
 | AI quality | Unsafe AI output is blocked and replaced by a safe fallback | Every assistant message passes a tested guardrail chain before it is sent |
 | CI gates | Typecheck, critical-flow guard, critical test suite, build | Lint, build, tests, database migration check |

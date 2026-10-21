@@ -2,7 +2,7 @@
 
 **TL;DR:** Agiliza Terapias is a practice-management web app for therapy clinics and solo therapists in Brazil (scheduling, patient records, AI clinical notes, a WhatsApp AI assistant, billing).
 I built it alone. I own the product, the code, the QA and the releases.
-For QA, this project has 7,594 automated test cases, a tested safety guardrail chain for the AI assistant, and 301 pre-release notes.
+For QA, this project has 7,618 automated test cases, a tested safety guardrail chain for the AI assistant, and 301 pre-release notes.
 
 Related documents: [Architecture](architecture.md) · [QA strategy](qa-strategy.md) · [Test cases](test-cases.md) · [AI feature testing](ai-feature-testing.md) · [Release validation](release-validation.md)
 
@@ -86,7 +86,7 @@ I am the solo founder. I do every job on this product:
 | Current version | 0.4.0 | `version` in `package.json` |
 | Pre-release notes | 301 (v0.1.1 to v0.4.0) | files `docs/releases/pre-release-*.md` |
 | Automated test files | 479 Vitest files + 1 Playwright file | files `tests/backend/**/*.test.{ts,tsx}` and `tests/e2e/*.spec.ts` |
-| Automated test cases | 7,594 Vitest + 4 Playwright | `npx vitest list --json`; `test(` calls in the Playwright spec |
+| Automated test cases | 7,618 Vitest + 4 Playwright | full `npx vitest run` on 2026-10-17; `test(` calls in the Playwright spec |
 | Database migrations | 145 SQL files | files in `supabase/migrations/` |
 
 ## What this project shows for an AI-feature QA role

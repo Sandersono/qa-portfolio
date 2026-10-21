@@ -1,7 +1,7 @@
 # Agiliza Terapias: QA Strategy
 
 **TL;DR:** This is my test strategy for a mental-health practice app with AI features. I test by risk: patient safety, health-data privacy and AI behavior come first.
-The automated suite has 7,594 Vitest test cases in 479 files and runs as a CI gate on every pull request. Live AI conversations, hardware and real phones stay manual, with written check steps in each release note.
+The automated suite has 7,618 Vitest test cases in 479 files and runs as a CI gate on every pull request. Live AI conversations, hardware and real phones stay manual, with written check steps in each release note.
 
 Related documents: [Overview](overview.md) · [Architecture](architecture.md) · [Test cases](test-cases.md) · [AI feature testing](ai-feature-testing.md) · [Release validation](release-validation.md)
 
@@ -54,7 +54,8 @@ Numbers in parentheses are test cases in that file, from `npx vitest list --json
 | Render tests (Vitest, `.tsx`) | React screens rendered to HTML: texts, buttons, role-based content | Files that import `react-dom/server` (and not `supertest`) | 68 | 1,125 |
 | API + render in one file | Both styles in the same file | Files that import both | 3 | 93 |
 | Migration tests (Vitest) | Each recent SQL migration: lint, planned columns and constraints, rollback script | Files named `migration-*` | 17 | 138 |
-| **Total Vitest** | | `tests/backend/**/*.test.{ts,tsx}` | **479** | **7,594** |
+| **Total Vitest (breakdown, 2026-10-16)** | | `tests/backend/**/*.test.{ts,tsx}` | **479** | **7,594** |
+| **Total Vitest (full run, 2026-10-17)** | Includes 24 tests added after the breakdown, not split by level | Full `npx vitest run` | **479** | **7,618** |
 | Browser smoke (Playwright) | Sign-in screens, self-service checkout with a mocked payment page, secretary menu | `tests/e2e/smoke.spec.ts` | 1 | 4 |
 | Manual real-world checks | Live AI behavior on WhatsApp, mobile screens, desktop recorder, third-party flows | "Prova real" (real-world check) sections in release notes | 15 notes | n/a |
 
